@@ -31,7 +31,7 @@
       <version>3.0.0</version>
     </dependency>
     <dependency>
-      <groupId>io.vertx</groupId>
+      <groupId>vertx-beans</groupId>
       <artifactId>vertx-beans</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
