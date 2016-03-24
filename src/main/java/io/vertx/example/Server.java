@@ -8,7 +8,7 @@ import io.vertx.core.file.FileSystem;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.shareddata.SharedData;
-import io.vertxbeans.InstanceRunner;
+import io.vertxbeans.ContextRunner;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -34,13 +34,16 @@ public class Server {
     @Resource
     private SharedData sharedData;
 
+    @Resource
+    private ContextRunner contextRunner;
+
     @Resource(name="someHandler")
     private Handler<HttpServerRequest> someHandler;
 
     @PostConstruct
     public void start() throws InterruptedException, ExecutionException, TimeoutException {
         // Create two instances
-        InstanceRunner.executeBlocking(2,
+        contextRunner.executeBlocking(2,
                 (Handler<AsyncResult<HttpServer>> handler) ->
                     vertx.createHttpServer().requestHandler(someHandler).listen(8080, handler),
                     1, TimeUnit.MINUTES);
